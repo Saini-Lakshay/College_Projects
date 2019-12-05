@@ -1,0 +1,45 @@
+/**
+ * @input A : Read only ( DON'T MODIFY ) Integer array
+ * @input n1 : Integer array's ( A ) length
+ * @input B : Integer
+ * 
+ * @Output Integer array. You need to malloc memory, and fill the length in len1
+ */
+ 
+int* slidingMaximum(const int* A, int n, int B, int *len1)
+{
+    int l=0;
+    *len1=(n-(B-1));
+    int *arr = (int *)malloc(sizeof(int)*(n-(B-1)));
+    int i=0,j=B-1;
+    int k=0,max=0;
+    
+    for(l=i;l<=j;l++)
+    {
+        if(A[l]>=A[max])
+            max=l;
+    }
+    
+    while(j<=(n-1))
+    {
+        if(A[j] >= A[max])
+            max=j;
+            
+        if(max < i)
+        {
+            max=i;
+            for(l=i;l<=j;l++)
+            {
+                if(A[l] >= A[max])
+                    max=l;
+            }
+        }
+        arr[k] = A[max];
+        k++;
+        i++;
+        j++;
+    }
+    
+    return arr;
+    
+}
